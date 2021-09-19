@@ -52,5 +52,5 @@ Loan Applications
 
 I have implemented a logger which has different levels of priority and it logs everyting we do in a seperate log file with the timestamp and date.
 
-<img src="logger_image.png" />
+<img src="logger_image.PNG" />
 
