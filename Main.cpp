@@ -1,3 +1,4 @@
+//Including necessary header files
 #include <iostream>
 #include <conio.h>
 #include <fstream>
@@ -8,9 +9,10 @@
 #include <thread>
 #include <mutex>
 #include "employee.h"
-
+#include "logger.h"
 using namespace std;
 
+//Function for displaying Employee Menu
 void employeeMenu()
 {
 rerun:
@@ -19,8 +21,8 @@ rerun:
     cout << "\n\n Enter Your Choice";
     cout << "\n\n\t\t Employee Detailer";
     cout << "\n 1. Enter new record about Employee";
-    cout << "\n 2. Set Salary";
-    cout << "\n 3. Get Salary";
+    cout << "\n 2. Set Employee's Salary";
+    cout << "\n 3. Get Employee's Salary";
     cout << "\n 4. Get Employment ID";
     cout << "\n 5. Get Department ";
     cout << "\n 6. Get Data About Employee";
@@ -29,7 +31,7 @@ rerun:
     cin >> choice;
     Manager mg;
     Employee emp;
-    //Employee *emp1;
+    Employee *emp1;
     switch (choice)
     {
     case 1:
@@ -57,9 +59,9 @@ rerun:
         emp.exportData();
         break;
     case 8:
-        //emp1 = &mg;
-        //emp1->getSalary();
-        mg.getSalary();
+        emp1 = &mg;
+        emp1->getSalary();
+        //mg.getSalary();
         break;
     default:
         cout << "\n\n Invalid Value...Please Try Again";
@@ -67,6 +69,8 @@ rerun:
     getch();
     goto rerun;
 }
+
+//Function for displaying Loan Menu
 void loanMenu()
 {
     Logger::Info("Getting Loan Menu");
@@ -78,7 +82,8 @@ rerun:
     cout << "\n\n\t\t LOAN APPLICATIONS";
     cout << "\n 1. Get Loan";
     cout << "\n 2. Get Loan Applications Details";
-    cout << "\n3. Exit";
+    cout << "\n 3. Exit";
+    cout << "\n Enter your choice: ";
     cin >> choice;
     switch (choice)
     {
@@ -98,13 +103,16 @@ rerun:
     goto rerun;
 }
 
+//Main Function
 int main()
 {
+    //Logger::EnableFileOutput("logs.txt");
     cout << "Welcome to Bank ";
     int choice;
     cout << "\n1. Bank Management";
     cout << "\n2. Employee Management";
     cout << "\n3. Loan Management";
+    cout << "\n4. Exit";
     cout << "\nPlease Enter your choice: ";
     cin >> choice;
     Bank bank;
@@ -115,9 +123,9 @@ int main()
     Manager Mg;
     emp1 = &Mg;
     //Loan loan;
-    thread t1;
-    thread t2;
-    thread t3;
+    thread t1; //Creating a thread 1
+    thread t2; //Creating a thread 2
+    thread t3; //Creating a thread 3
     switch (choice)
     {
     case 1:
@@ -132,6 +140,10 @@ int main()
         t2 = thread(loanMenu);
         t2.join();
         break;
+    case 4:
+        exit(1);
+        break;
     }
+
     return 0;
 }

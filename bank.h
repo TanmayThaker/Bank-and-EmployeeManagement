@@ -9,7 +9,6 @@
 #include <thread>
 #include <mutex>
 #include "logger.h"
-
 using namespace std;
 mutex m;
 
@@ -19,8 +18,10 @@ void loanf();
 //void pay();
 void loanMenu();
 
+//class Bank
 class Bank
 {
+    //Private members of Bank class
 private:
     char type[10];
     string username;
@@ -30,36 +31,42 @@ private:
     int accountNumber;
 
 public:
+    //Bank Constructor
     Bank()
     {
         balance = 0;
     }
-    /*
+
     ~Bank()
     {
-        cout << "Thanks for visiting our bank." << endl;
+        cout << "\nThanks for visiting our bank." << endl;
     }
-    */
+
+    //Function to get Account Type
     char *getAccountType()
     {
         Logger::Info("Account Type function called: Returns the type of account");
         return type;
     }
+    //Function to getUsername
     string getUsername()
     {
         Logger::Info("Account Number function called");
         return username;
     }
+    //Function to get Total available balance
     int getTotalAvailableBalance()
     {
         Logger::Info("Returns Total available balance: \"getTotalAvailableBalance\" called");
         return balance;
     }
+    //Function to set Total available balance
     void setTotalAvailableBalance(int bal)
     {
         Logger::Info("Setting Total Available Balance");
         balance = bal;
     }
+    //Function to deposit total amount of Money
     void deposit()
     {
         Logger::Info("Deposit function called");
@@ -67,6 +74,7 @@ public:
         cin >> amount;
         balance += amount;
     }
+    //Function to get Account Number
     int getAccountNumber()
     {
         Logger::Info("Account Number function called");
@@ -74,6 +82,7 @@ public:
         Logger::Info("Successfully returned account number");
         return accountNumber;
     }
+    //Function to withdraw money from Bank
     void withdrawMoney()
     {
         Logger::Info("Withdraw Money Function called");
@@ -82,6 +91,7 @@ public:
         cout << "Enter amount to withdraw\n";
         cin >> withdrawAmount;
         availablebalance = getTotalAvailableBalance();
+        //Try catech block for Exception Handling
         try
         {
             if (withdrawAmount <= 0 || (availablebalance - withdrawAmount) <= 0)
@@ -102,17 +112,19 @@ public:
         m.unlock();
         Logger::Info("Successfully completed withdrawl");
     }
+    // //Function to get User's Balance
     int getUserAmount()
     {
         Logger::Info("User Amount Function Called");
         return amount;
     }
+    //Function to Show Balance of user
     void showBalance()
     {
         Logger::Info("Showing Total Balance");
         cout << "\nTotal balance is: " << balance;
     }
-
+    //Function to get all the details about the user
     void getData(void)
     {
         Logger::Info("Taking data from the User");
@@ -122,22 +134,28 @@ public:
         getline(cin, username);
         cout << "\nEnter 4-digit "
              << "password:";
-
         cin >> password;
+        while (password < 1000 && password > 9999)
+        {
+            cout << "ERROR: Invalid Pin: " << endl;
+            cout << "Enter your 4 digit pin please: ";
+            cin >> password;
+        }
         cin.ignore();
         cout << "\nEnter initial"
              << " balance:";
 
         cin >> balance;
-        cout << "Enter Account number\n";
+        cout << "\nEnter Account number: ";
         cin >> accountNumber;
-        ofstream MyFile("final.txt");
-        MyFile << accountNumber;
+        ofstream MyFile("final.txt"); //Creating an output file object and opening "final.txt"
+        MyFile << accountNumber;      //Appending accountNumber into the file
         MyFile.close();
-        cout << "Enter Account type\n";
+        cout << "\nEnter Account type: ";
         cin >> type;
         cin.ignore();
     }
+    //Function to show data about bank
     void showBankData()
     {
         Logger::Info("Bank Data function called");
@@ -196,6 +214,7 @@ public:
         //getch();
     }*/
 };
+//Function to show Bank menu
 void bankMenu()
 {
     Logger::Info("Bank Menu Called");
@@ -226,13 +245,6 @@ void bankMenu()
             bank.getData();
             break;
         case 2:
-            /*
-                thread t1(withdrawMoney);
-                thread t2(withdrawMoney);
-                thread t3(withdrawMoney);
-                t1.join();
-                t2.join();
-                t3.join();*/
             bank.withdrawMoney();
             break;
         case 3:
@@ -257,28 +269,31 @@ void bankMenu()
 
     //getch();
 }
+float loanAmount;
+//Loan class
 class Loan : public Bank
 {
 private:
-    float loanAmount;
     float interest;
     int time;
 
 public:
     float lon;
+    //Loan Constructor
     Loan()
     {
         lon = 0;
-        loanAmount = 0;
-        time = 0;
+        //loanAmount = 0;
+        time = 10;
         interest = 0.4;
     }
+    //Function to get Loan Amount
     int getLoanAmount()
     {
         Logger::Info("Getting Loan Amount: Loan Amount Function called");
         return loanAmount;
     }
-
+    //Function to get Loan Interest
     int getInterest()
     {
         Logger::Info("Getting Interest: Interest Function called");
@@ -306,37 +321,37 @@ public:
                 cout << "loan to be paid= " << lon;
         }
     }*/
+    //Function to get Loan
     void getLoan()
     {
         Bank b;
         float l;
-        if (lon == 0)
+        if (loanAmount == 0)
         {
             cout << "Enter loan:";
             cin >> l;
 
-            cout << "\n\n\tyou can get loan";
-            lon = l;
-            cout << "Loan sanctioned: " << lon;
+            cout << "\nYou can get loan";
+            loanAmount = l;
+            cout << "\nLoan sanctioned: " << loanAmount;
         }
         else
         {
-            cout << "\n\n\tYou have previous loan.";
+            cout << "\nYou have previous loan.";
         }
     }
     //void getLoanDetails();
     void output()
     {
-        Logger::Info("Getting details about Loan");
+        //Logger::Info("Getting details about Loan");
         Bank b;
         Loan loan;
-        cout << "\n\nname:" << b.getUsername();
-        cout << "\n\n total balance:" << b.getUserAmount();
-        cout << "\n\n Loan Amount: " << lon;
-        cout << "\n\ninterest:" << loan.getInterest();
+        cout << "\n\n Loan Amount: " << loanAmount;
+        cout << "\n\n Interest:" << interest;
     }
 };
 
+//Non member function to get Loan
 void loanf()
 {
     Logger::Info("Getting Loan: Get Loan Function called");
@@ -365,34 +380,3 @@ void loanf()
         bankMenu();
     }
 }
-/*
-void pay()
-{
-    Bank b;
-    Loan a;
-    fstream file;
-    file.open("final.text", ios::ate | ios::in | ios::out | ios::binary);
-
-    int i, found = 0;
-    cout << "Account no:";
-    cin >> i;
-    file.seekg(0);
-
-    ifstream myFile;
-    myFile.open("final.txt");
-    int line = 0;
-    myFile >> line;
-    myFile.close();
-    if (i == line)
-    {
-        a.payLoan();
-        found = true;
-    }
-    else
-    {
-        found = false;
-        cout << "\n\n\t This account is not exist in file.";
-        b.menu();
-    }
-    getch();
-}*/
