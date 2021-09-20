@@ -1,17 +1,8 @@
 #pragma once
-#include <thread>
+#include <fstream>
 #include <stdio.h>
 #include <mutex>
-#include <fstream>
-void filePutContents(const std::string &name, const std::string &content, bool append = false)
-{
-    std::ofstream outfile;
-    if (append)
-        outfile.open(name, std::ios_base::app);
-    else
-        outfile.open(name);
-    outfile << content;
-}
+#include <ctime>
 using namespace std;
 enum LogPriority
 {
@@ -27,108 +18,122 @@ class Logger
 {
 private:
     static LogPriority priority;
-    static mutex log_mutex;
+    static std::mutex log_mutex;
+    static const char *filepath;
+    static FILE *file;
 
 public:
-    static void set_priority(LogPriority new_priority)
+    static void SetPriority(LogPriority new_priority)
     {
         priority = new_priority;
     }
+    /*
+    static void EnableFileOutput()
+    {
+        filepath = "logs.txt";
+        enable_file_output();
+    }
 
+    static void EnableFileOutput(const char *new_filepath)
+    {
+        filepath = new_filepath;
+        enable_file_output();
+    }
+
+    static void CloseFileOutput()
+    {
+        free_file();
+    }
+*/
     template <typename... Args>
     static void Trace(const char *message, Args... args)
     {
-        if (priority <= TracePriority)
-        {
-            lock_guard<mutex> lock(log_mutex);
-            ofstream ofs;
-            ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[TRACE]\t" << message << "\n";
-            // printf("[Trace]\t");
-            // printf(message, args...);
-            printf("\n");
-        }
+        log("[Trace]\t", TracePriority, message, args...);
     }
 
     template <typename... Args>
     static void Debug(const char *message, Args... args)
     {
-        if (priority <= DebugPriority)
-        {
-            lock_guard<mutex> lock(log_mutex);
-            ofstream ofs;
-            ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[DEBUG]\t" << message << "\n";
-            //printf("[Debug]\t");
-            //printf(message, args...);
-            printf("\n");
-        }
+        log("[Debug]\t", DebugPriority, message, args...);
     }
 
     template <typename... Args>
     static void Info(const char *message, Args... args)
     {
-        if (priority <= InfoPriority)
-        {
-            //string s = "[INFO]\t" + message;
-            lock_guard<mutex> lock(log_mutex);
-            /*ofstream newFile("logs.txt");
-            
-            newFile << "[INFO]\t" << message;
-            newFile.write("[Hello]");*/
-            //filePutContents("logs.txt", s, true);
-            ofstream ofs;
-            ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[INFO]\t" << message << "\n";
-            printf("\n");
-        }
+        log("[Info]\t", InfoPriority, message, args...);
     }
 
     template <typename... Args>
     static void Warn(const char *message, Args... args)
     {
-        if (priority <= WarnPriority)
-        {
-            lock_guard<mutex> lock(log_mutex);
-            ofstream ofs;
-            ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[WARN]\t" << message << "\n";
-            //printf("[Warn]\t");
-            //printf(message, args...);
-            printf("\n");
-        }
+        log("[Warn]\t", WarnPriority, message, args...);
     }
 
     template <typename... Args>
     static void Error(const char *message, Args... args)
     {
-        if (priority <= ErrorPriority)
-        {
-            lock_guard<mutex> lock(log_mutex);
-            ofstream ofs;
-            ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[ERROR]\t" << message << "\n";
-            //printf("[Error]\t");
-            // printf(message, args...);
-            printf("\n");
-        }
+        log("[Error]\t", ErrorPriority, message, args...);
     }
 
     template <typename... Args>
     static void Critical(const char *message, Args... args)
     {
-        if (priority <= CriticalPriority)
+        log("[Critical]\t", CriticalPriority, message, args...);
+    }
+
+private:
+    template <typename... Args>
+    static void log(const char *message_priority_str, LogPriority message_priority, const char *message, Args... args)
+    {
+        if (priority <= message_priority)
         {
+            std::time_t current_time = std::time(0);
+            std::tm *timestamp = std::localtime(&current_time);
+            char buffer[80];
+            strftime(buffer, 80, "%c", timestamp);
+
             lock_guard<mutex> lock(log_mutex);
+            printf("%s\t", buffer);
+            printf(message_priority_str);
+            printf(message, args...);
+            printf("\n");
+
+            if (file)
+            {
+                fprintf(file, "%s\t", buffer);
+                fprintf(file, message_priority_str);
+                fprintf(file, message, args...);
+                fprintf(file, "\n");
+            }
             ofstream ofs;
             ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
-            ofs << "[CRTICAL]\t" << message << "\n";
-            //printf("[Critical]\t");
-            //printf(message, args...);
-            printf("\n");
+            ofs << buffer << "\t" << message_priority_str << message << "\n";
         }
     }
+    /*
+    static void enable_file_output()
+    {
+        if (file != 0)
+        {
+            fclose(file);
+        }
+
+        file = fopen("./logs.txt", "a");
+
+        if (file == 0)
+        {
+            printf("Logger: Failed to open file at %s", filepath);
+        }
+    }
+
+    static void free_file()
+    {
+        fclose(file);
+        file = 0;
+    }*/
 };
 
 LogPriority Logger::priority = InfoPriority;
-mutex Logger::log_mutex;
+std::mutex Logger::log_mutex;
+const char *Logger::filepath = 0;
+FILE *Logger::file = 0;
