@@ -18,7 +18,7 @@ A single project which implements the following concepts of c++:
   *   Inheritance
   *   Logging Mechanism
   *   Header files
-  *   Constructor
+  *   Constructor and Destructor
   
 ## Class Diagram
 <img src="class_diagram.PNG" />
