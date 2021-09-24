@@ -19,32 +19,13 @@ class Logger
 private:
     static LogPriority priority;
     static std::mutex log_mutex;
-    static const char *filepath;
-    static FILE *file;
 
 public:
     static void SetPriority(LogPriority new_priority)
     {
         priority = new_priority;
     }
-    /*
-    static void EnableFileOutput()
-    {
-        filepath = "logs.txt";
-        enable_file_output();
-    }
 
-    static void EnableFileOutput(const char *new_filepath)
-    {
-        filepath = new_filepath;
-        enable_file_output();
-    }
-
-    static void CloseFileOutput()
-    {
-        free_file();
-    }
-*/
     template <typename... Args>
     static void Trace(const char *message, Args... args)
     {
@@ -93,47 +74,12 @@ private:
             strftime(buffer, 80, "%c", timestamp);
 
             lock_guard<mutex> lock(log_mutex);
-            printf("%s\t", buffer);
-            printf(message_priority_str);
-            printf(message, args...);
-            printf("\n");
-
-            if (file)
-            {
-                fprintf(file, "%s\t", buffer);
-                fprintf(file, message_priority_str);
-                fprintf(file, message, args...);
-                fprintf(file, "\n");
-            }
             ofstream ofs;
             ofs.open("logs.txt", std::ofstream::out | std::ofstream::app);
             ofs << buffer << "\t" << message_priority_str << message << "\n";
         }
     }
-    /*
-    static void enable_file_output()
-    {
-        if (file != 0)
-        {
-            fclose(file);
-        }
-
-        file = fopen("./logs.txt", "a");
-
-        if (file == 0)
-        {
-            printf("Logger: Failed to open file at %s", filepath);
-        }
-    }
-
-    static void free_file()
-    {
-        fclose(file);
-        file = 0;
-    }*/
 };
 
 LogPriority Logger::priority = InfoPriority;
 std::mutex Logger::log_mutex;
-const char *Logger::filepath = 0;
-FILE *Logger::file = 0;
