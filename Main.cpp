@@ -19,15 +19,16 @@ rerun:
     system("cls");
     int choice;
     cout << "\n\n Enter Your Choice";
-    cout << "\n\n\t\t Employee Detailer";
+    cout << "\n\n Employee Detailer";
     cout << "\n 1. Enter new record about Employee";
     cout << "\n 2. Set Employee's Salary";
     cout << "\n 3. Get Employee's Salary";
     cout << "\n 4. Get Employment ID";
     cout << "\n 5. Get Department ";
     cout << "\n 6. Get Data About Employee";
-    cout << "\n 7.Export Data";
-    cout << "\n 8.Get Manager's Salary";
+    cout << "\n 7. Export Data";
+    cout << "\n 8. Get Manager's Salary";
+    cout << "\n Enter your choice: ";
     cin >> choice;
     Manager mg;
     Employee emp;
@@ -38,7 +39,7 @@ rerun:
         emp.ReadData();
         break;
     case 2:
-        cout << "Enter the salary of Employee";
+        cout << "Enter the salary of Employee: ";
         int n;
         cin >> n;
         emp.setSalary(n);
@@ -115,13 +116,6 @@ int main()
     cout << "\n4. Exit";
     cout << "\nPlease Enter your choice: ";
     cin >> choice;
-    Bank bank;
-    Employee emp;
-    Employee *emp1;
-    Cashier c;
-    emp1 = &c;
-    Manager Mg;
-    emp1 = &Mg;
     //Loan loan;
     thread t1; //Creating a thread 1
     thread t2; //Creating a thread 2
@@ -144,6 +138,5 @@ int main()
         exit(1);
         break;
     }
-
     return 0;
 }
