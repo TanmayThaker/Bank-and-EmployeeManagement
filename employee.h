@@ -8,20 +8,11 @@
 #include <stdio.h>
 #include <thread>
 #include <mutex>
+#include <bits/stdc++.h>
 #include "bank.h"
 using namespace std;
 float managerSalary;
 float cashierSalary;
-/*
-struct employee
-{
-    string name;
-    long int code;
-    string designation;
-    int exp;
-    int age;
-};
-*/
 
 //Employee class
 class Employee : public Bank
@@ -30,11 +21,12 @@ class Employee : public Bank
 private:
     int EmpID;
     char EmpName[50], Department[10];
-
+    //vector<string> EmpName;
     string Post;
 
 public:
     float Salary;
+    list<int> li;
     //int managerSalary;
     //Function to set Salary of employee
     void setSalary(int sal)
@@ -57,6 +49,7 @@ public:
         cout << endl
              << "Employee ID:";
         cin >> EmpID;
+        li.push_back(EmpID);
         cout << "Employee Name:";
         cin >> EmpName;
         cout << "Employee's Post:";
@@ -75,21 +68,89 @@ public:
         }
         else
         {
-            cout << "Salary:";
+            cout << "Salary: ";
             cin >> Salary;
         }
-        cout << "\n Employee's Department:";
+        cout << "\nEmployee's Department:";
         cin >> Department;
     }
     //Function to export data of employee
-    void exportData()
+    void exportDataAsTxt()
     {
-        Logger::Info("Exporting Data of Employee");
-        ofstream MyFile("employeeData.txt");
+        Logger::Info("Exporting Data of Employee in txt format");
+        ofstream MyFile("employeeData.txt", ios::out | ios::app);
         //MyFile << GetID();
-        MyFile << EmpID << " " << EmpName << " " << Post << " " << Department << " " << Salary;
+        MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName << "\nDepartment: " << Department << "\nSalary: " << Salary << "\n";
         MyFile.close();
     }
+
+    //Function to export data as csv
+    void exportDataAsCSV()
+    {
+        Logger::Info("Exporting Data of Employee in csv format");
+        fstream fout;
+        fout.open("employeeData.csv", ios::out | ios::app);
+        fout << EmpID << ","
+             << EmpName << ","
+             << Department << ","
+             << Salary << ",";
+    }
+
+    //Function to display employment details
+    void getEmployeeDetails(int id)
+    {
+        fstream fin;
+        fin.open("employeeData.csv", ios::in);
+        int ID, sal;
+        int count = 0;
+        string name, department, word, line;
+        vector<string> row;
+        while (fin.good())
+        {
+            row.clear();
+
+            // read an entire row and
+            // store it in a string variable 'line'
+            getline(fin, line);
+
+            // used for breaking words
+            stringstream s(line);
+
+            // read every column data of a row and
+            // store it in a string variable, 'word'
+            while (getline(s, word, ','))
+            {
+
+                // add all the column data
+                // of a row to a vector
+                row.push_back(word);
+            }
+            /*
+            for (int i = 0; i > row.size(); i++)
+            {
+                cout << row[i] << endl;
+            }*/
+            // convert string to integer for comparision
+            ID = stoi(row[0]);
+
+            // Compare the roll number
+            if (ID == id)
+            {
+
+                // Print the found data
+                count = 1;
+                cout << "Details of Employment ID: " << row[0] << " : \n";
+                cout << "Name: " << row[1] << "\n";
+                cout << "Department: " << row[2] << "\n";
+                cout << "Salary: " << row[3] << "\n";
+                break;
+            }
+        }
+
+        if (count == 0)
+            cout << "Record not found\n";
+    }
+
     //Function to get Salary of Manager
     int getManagerSalary()
     {
@@ -108,7 +169,7 @@ public:
     {
         Logger::Info("Displaying record about Employee");
         cout << endl
-             << "_______________________________";
+             << "_____________________________________________________________________";
         cout << endl
              << setw(5) << EmpID << setw(15) << EmpName << setw(15) << Post << setw(15) << Department << setw(8) << Salary;
     }
