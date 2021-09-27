@@ -1,4 +1,5 @@
 //Including necessary header files
+#include <bits/stdc++.h>
 #include <iostream>
 #include <conio.h>
 #include <fstream>
@@ -28,6 +29,8 @@ rerun:
     cout << "\n 6. Get Data About Employee";
     cout << "\n 7. Export Data";
     cout << "\n 8. Get Manager's Salary";
+    cout << "\n 9. Get Employment Details";
+    cout << "\n 10. Export Data in Text Format";
     cout << "\n Enter your choice: ";
     cin >> choice;
     Manager mg;
@@ -57,12 +60,22 @@ rerun:
         emp.DisplayRecord();
         break;
     case 7:
-        emp.exportData();
+        emp.exportDataAsCSV();
         break;
     case 8:
         emp1 = &mg;
         emp1->getSalary();
         //mg.getSalary();
+        break;
+    case 9:
+        int id;
+        cout << "Welcome to Employee Search";
+        cout << "Please enter emplyment ID";
+        cin >> id;
+        emp.getEmployeeDetails(id);
+        break;
+    case 10:
+        emp.exportDataAsTxt();
         break;
     default:
         cout << "\n\n Invalid Value...Please Try Again";
