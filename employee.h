@@ -58,9 +58,6 @@ public:
         cin >> name;
         EmpName.push_back(name);
         cin.ignore();
-        int n = EmpName.size();
-        cout << "Current Size is: " << n << "\n";
-        cout << EmpName[n - 1] << "\n";
         string post;
         cout << "Employee's Post: ";
         cin >> post;
