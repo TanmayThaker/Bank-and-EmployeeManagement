@@ -10,7 +10,7 @@
 #include <mutex>
 #include "logger.h"
 using namespace std;
-mutex m;
+//mutex m;
 
 /*loan functions*/
 //void show();
@@ -36,12 +36,82 @@ public:
     {
         balance = 0;
     }
-
-    ~Bank()
+    int countDigits(long long n)
     {
-        cout << "\nThanks for visiting our bank." << endl;
+        int count = 0;
+        while (n != 0)
+        {
+            n = n / 10;
+            ++count;
+        }
+        return count;
+    }
+    //Function to export data about the bank account
+    void exportDataAsCSV()
+    {
+        Logger::Info("Exporting Data of bank in csv format");
+        fstream fout;
+        fout.open("bankData.csv", ios::out | ios::app);
+        fout << accountNumber << ","
+             << username << ","
+             << balance << ","
+             << type << "\n";
     }
 
+    //Function to display employment details
+    void getBankDetails(int id)
+    {
+        fstream fin;
+        fin.open("bankData.csv", ios::in);
+        int ID, sal;
+        int count = 0;
+        string name, department, word, line;
+        vector<string> row;
+        while (fin.good())
+        {
+            row.clear();
+
+            // read an entire row and
+            // store it in a string variable 'line'
+            getline(fin, line);
+
+            // used for breaking words
+            stringstream s(line);
+
+            // read every column data of a row and
+            // store it in a string variable, 'word'
+            while (getline(s, word, ','))
+            {
+
+                // add all the column data
+                // of a row to a vector
+                row.push_back(word);
+            }
+            /*
+            for (int i = 0; i > row.size(); i++)
+            {
+                cout << row[i] << endl;
+            }*/
+            // convert string to integer for comparision
+            ID = stoi(row[0]);
+
+            // Compare the roll number
+            if (ID == id)
+            {
+
+                // Print the found data
+                count = 1;
+                cout << "Details of Account Number " << row[0] << ": \n";
+                cout << "Name: " << row[1] << "\n";
+                cout << "Balance: " << row[2] << "\n";
+                cout << "Account Type: " << row[3] << "\n";
+                break;
+            }
+        }
+
+        if (count == 0)
+            cout << "Record not found\n";
+    }
     //Function to get Account Type
     char *getAccountType()
     {
@@ -86,12 +156,12 @@ public:
     void withdrawMoney()
     {
         Logger::Info("Withdraw Money Function called");
-        m.lock();
+        //m.lock();
         float withdrawAmount, availablebalance;
         cout << "Enter amount to withdraw\n";
         cin >> withdrawAmount;
-        availablebalance = getTotalAvailableBalance();
-        //Try catech block for Exception Handling
+        availablebalance = balance;
+        //Try catch block for Exception Handling
         try
         {
             if (withdrawAmount <= 0 || (availablebalance - withdrawAmount) <= 0)
@@ -102,15 +172,13 @@ public:
             availablebalance = availablebalance - withdrawAmount;
             setTotalAvailableBalance(availablebalance);
             cout << "Amount of rupees " << withdrawAmount << " has been withdrawn";
-            Logger::Info("Successfully completed withdrawl");
         }
         catch (float withdrawAmount)
         {
             Logger::Error("Exception Occured while withdrawing money");
             cout << "Please Enter the valid amount" << endl;
         }
-        m.unlock();
-        Logger::Info("Successfully completed withdrawl");
+        //m.unlock();
     }
     // //Function to get User's Balance
     int getUserAmount()
@@ -130,12 +198,12 @@ public:
         Logger::Info("Taking data from the User");
         cin.ignore();
         cout << "\nEnter username:";
-
         getline(cin, username);
+        cin.ignore();
         cout << "\nEnter 4-digit "
              << "password:";
         cin >> password;
-        while (password < 1000 && password > 9999)
+        if (countDigits(password) > 5 || countDigits(password) < 4)
         {
             cout << "ERROR: Invalid Pin: " << endl;
             cout << "Enter your 4 digit pin please: ";
@@ -164,56 +232,9 @@ public:
         cout << "Account No:" << accountNumber << endl;
         cout << "Account type:" << type << endl;
         cout << "Balance:" << balance << endl;
-    } /*
-    void menu()
-    {
-        Logger::Info("Bank Menu Called");
-        system("cls");
-        while (true)
-        {
-            int choice;
-            cout << "\n\n\t\t ATM Management";
-            cout << "\n\n 1. Create an account";
-            cout << "\n 2. Withdraw Amount";
-            cout << "\n 3. Deposit Amount";
-            cout << "\n 4. Show Balance";
-            cout << "\n 5. Show Bank Data";
-            cout << "\n 6. Loan Applications";
-            cout << "\n 7. Exit";
-            cout << "\n\n Enter Your Choice: ";
-            cin >> choice;
-
-            switch (choice)
-            {
-            case 1:
-                getData();
-                break;
-            case 2:
-                withdrawMoney();
-                break;
-            case 3:
-                deposit();
-                break;
-            case 4:
-                showBalance();
-                break;
-            case 5:
-                showBankData();
-                break;
-            case 6:
-                loanMenu();
-                break;
-            case 7:
-                exit(1);
-                break;
-            default:
-                cout << "\n\n Invalid Value...Please Try Again";
-            }
-        }
-
-        //getch();
-    }*/
+    }
 };
+
 //Function to show Bank menu
 void bankMenu()
 {
@@ -235,16 +256,23 @@ void bankMenu()
         cout << "\n 4. Show Balance";
         cout << "\n 5. Show Bank Data";
         cout << "\n 6. Loan Applications";
-        cout << "\n 7. Exit";
+        cout << "\n 7. Export Data as CSV";
+        cout << "\n 8. Get Account Details";
+        cout << "\n 9. Exit";
         cout << "\n\n Enter Your Choice: ";
         cin >> choice;
-
+        //Bank *bankPtr = new Bank();
+        //thread th;
         switch (choice)
         {
         case 1:
             bank.getData();
             break;
         case 2:
+
+            //th = thread(&Bank::withdrawMoney, bankPtr);
+            //th.join();
+            //delete bankPtr;
             bank.withdrawMoney();
             break;
         case 3:
@@ -260,6 +288,15 @@ void bankMenu()
             loanMenu();
             break;
         case 7:
+            bank.exportDataAsCSV();
+            break;
+        case 8:
+            int an;
+            cout << "Please enter your account number: ";
+            cin >> an;
+            bank.getBankDetails(an);
+            break;
+        case 9:
             exit(1);
             break;
         default:
@@ -269,6 +306,7 @@ void bankMenu()
 
     //getch();
 }
+
 float loanAmount;
 //Loan class
 class Loan : public Bank
@@ -299,28 +337,6 @@ public:
         Logger::Info("Getting Interest: Interest Function called");
         return interest;
     }
-    /*
-    void payLoan()
-    {
-        Loan loan;
-        int m;
-        if (lon == 0)
-            cout << "\n\n\t You have no loan.";
-        else
-        {
-            cout << "\n\n\t You have to pay " << lon;
-            cout << "\n\nEnter your payment";
-            cin >> m;
-            lon = lon - m;
-            if (lon <= 0)
-            {
-                cout << "\n\n\tok your loan paid.";
-                lon = 0;
-            }
-            else
-                cout << "loan to be paid= " << lon;
-        }
-    }*/
     //Function to get Loan
     void getLoan()
     {
