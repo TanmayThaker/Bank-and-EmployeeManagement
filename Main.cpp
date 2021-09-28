@@ -16,6 +16,9 @@ using namespace std;
 //Function for displaying Employee Menu
 void employeeMenu()
 {
+    Manager mg;
+    Employee emp;
+    Employee *emp1;
     while (true)
     {
         //system("cls");
@@ -33,9 +36,7 @@ void employeeMenu()
         cout << "\n 9. Export Data in Text Format";
         cout << "\n Enter your choice: ";
         cin >> choice;
-        Manager mg;
-        Employee emp;
-        Employee *emp1;
+
         switch (choice)
         {
         case 1:
@@ -58,8 +59,8 @@ void employeeMenu()
             break;
         case 6:
             int id;
-            cout << "Welcome to Employee Search";
-            cout << "Please enter emplyment ID";
+            cout << "Welcome to Employee Search\n";
+            cout << "Please enter emplyment ID: ";
             cin >> id;
             emp.getEmployeeDetails(id);
             break;
@@ -81,7 +82,6 @@ void employeeMenu()
         }
     }
 }
-
 //Function for displaying Loan Menu
 void loanMenu()
 {
