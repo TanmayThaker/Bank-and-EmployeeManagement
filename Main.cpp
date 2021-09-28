@@ -16,72 +16,70 @@ using namespace std;
 //Function for displaying Employee Menu
 void employeeMenu()
 {
-rerun:
-    system("cls");
-    int choice;
-    cout << "\n\n Enter Your Choice";
-    cout << "\n\n Employee Detailer";
-    cout << "\n 1. Enter new record about Employee";
-    cout << "\n 2. Set Employee's Salary";
-    cout << "\n 3. Get Employee's Salary";
-    cout << "\n 4. Get Employment ID";
-    cout << "\n 5. Get Department ";
-    cout << "\n 6. Get Data About Employee";
-    cout << "\n 7. Export Data";
-    cout << "\n 8. Get Manager's Salary";
-    cout << "\n 9. Get Employment Details";
-    cout << "\n 10. Export Data in Text Format";
-    cout << "\n Enter your choice: ";
-    cin >> choice;
-    Manager mg;
-    Employee emp;
-    Employee *emp1;
-    switch (choice)
+    while (true)
     {
-    case 1:
-        emp.ReadData();
-        break;
-    case 2:
-        cout << "Enter the salary of Employee: ";
-        int n;
-        cin >> n;
-        emp.setSalary(n);
-        break;
-    case 3:
-        emp.getSalary();
-        break;
-    case 4:
-        emp.GetID();
-        break;
-    case 5:
-        emp.GetDepartment();
-        break;
-    case 6:
-        emp.DisplayRecord();
-        break;
-    case 7:
-        emp.exportDataAsCSV();
-        break;
-    case 8:
-        emp1 = &mg;
-        emp1->getSalary();
-        //mg.getSalary();
-        break;
-    case 9:
-        int id;
-        cout << "Welcome to Employee Search";
-        cout << "Please enter emplyment ID";
-        cin >> id;
-        emp.getEmployeeDetails(id);
-        break;
-    case 10:
-        emp.exportDataAsTxt();
-        break;
-    default:
-        cout << "\n\n Invalid Value...Please Try Again";
+        //system("cls");
+        int choice;
+        cout << "\n\n Enter Your Choice";
+        cout << "\n\n Employee Detailer";
+        cout << "\n 1. Enter new record about Employee";
+        cout << "\n 2. Set Employee's Salary";
+        cout << "\n 3. Get Employee's Salary";
+        cout << "\n 4. Get Employment ID";
+        cout << "\n 5. Get Employee Count ";
+        cout << "\n 6. Get Employment Details";
+        cout << "\n 7. Export Data";
+        cout << "\n 8. Get Manager's Salary";
+        cout << "\n 9. Export Data in Text Format";
+        cout << "\n Enter your choice: ";
+        cin >> choice;
+        Manager mg;
+        Employee emp;
+        Employee *emp1;
+        switch (choice)
+        {
+        case 1:
+            emp.ReadData();
+            break;
+        case 2:
+            cout << "Enter the salary of Employee: ";
+            int n;
+            cin >> n;
+            emp.setSalary(n);
+            break;
+        case 3:
+            emp.getSalary();
+            break;
+        case 4:
+            emp.GetID();
+            break;
+        case 5:
+            cout << "Total number of employees are: " << emp.getEmployeeCount();
+            break;
+        case 6:
+            int id;
+            cout << "Welcome to Employee Search";
+            cout << "Please enter emplyment ID";
+            cin >> id;
+            emp.getEmployeeDetails(id);
+            break;
+        case 7:
+            emp.exportDataAsCSV();
+            break;
+        case 8:
+            emp1 = &mg;
+            emp1->getSalary();
+            //mg.getSalary();
+            break;
+
+        case 9:
+            emp.exportDataAsTxt();
+            break;
+
+        default:
+            cout << "\n\n Invalid Value...Please Try Again";
+        }
     }
-    getch();
-    goto rerun;
 }
 
 //Function for displaying Loan Menu
