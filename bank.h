@@ -23,8 +23,8 @@ class Bank
 {
     //Private members of Bank class
 private:
-    char type[10];
-    string username;
+    vector<string> type;
+    vector<string> username;
     int password;
     int balance; //total money available in the bank
     int amount;  // User's amount details
@@ -51,11 +51,13 @@ public:
     {
         Logger::Info("Exporting Data of bank in csv format");
         fstream fout;
+        int n = type.size();
+        int m = username.size();
         fout.open("bankData.csv", ios::out | ios::app);
         fout << accountNumber << ","
-             << username << ","
+             << username[m - 1] << ","
              << balance << ","
-             << type << "\n";
+             << type[n - 1] << "\n";
     }
 
     //Function to display employment details
@@ -113,16 +115,18 @@ public:
             cout << "Record not found\n";
     }
     //Function to get Account Type
-    char *getAccountType()
+    string getAccountType()
     {
         Logger::Info("Account Type function called: Returns the type of account");
-        return type;
+        int n = type.size();
+        return type[n - 1];
     }
     //Function to getUsername
     string getUsername()
     {
         Logger::Info("Account Number function called");
-        return username;
+        int m = username.size();
+        return username[m - 1];
     }
     //Function to get Total available balance
     int getTotalAvailableBalance()
@@ -197,8 +201,10 @@ public:
     {
         Logger::Info("Taking data from the User");
         cin.ignore();
+        string User;
         cout << "\nEnter username:";
-        getline(cin, username);
+        cin >> User;
+        username.push_back(User);
         cin.ignore();
         cout << "\nEnter 4-digit "
              << "password:";
@@ -219,8 +225,10 @@ public:
         ofstream MyFile("final.txt"); //Creating an output file object and opening "final.txt"
         MyFile << accountNumber;      //Appending accountNumber into the file
         MyFile.close();
+        string Type;
         cout << "\nEnter Account type: ";
-        cin >> type;
+        cin >> Type;
+        type.push_back(Type);
         cin.ignore();
     }
     //Function to show data about bank
@@ -228,9 +236,11 @@ public:
     {
         Logger::Info("Bank Data function called");
         Bank b;
-        cout << "Name:" << username << endl;
+        int n = type.size();
+        int m = username.size();
+        cout << "Name:" << username[m - 1] << endl;
         cout << "Account No:" << accountNumber << endl;
-        cout << "Account type:" << type << endl;
+        cout << "Account type:" << type[n - 1] << endl;
         cout << "Balance:" << balance << endl;
     }
 };
