@@ -46,6 +46,7 @@ Employee Management :
 7. Export Data
 8. Get Manager's Salary
 9. Export Data in Text Format
+
 Loan Applications
 1. Get Loan
 2. Get Loan Applications Details
