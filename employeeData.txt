@@ -1,0 +1,8 @@
+Employee ID: 1
+Employee Name: Tanmay
+Department: IT
+Salary: 13000
+Employee ID: 2
+Employee Name: Pranali
+Department: HR
+Salary: 65000
