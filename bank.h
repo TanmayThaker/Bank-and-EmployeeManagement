@@ -63,6 +63,7 @@ public:
     //Function to display employment details
     void getBankDetails(int id)
     {
+        Logger::Info("Getting account details from CSV");
         fstream fin;
         fin.open("bankData.csv", ios::in);
         int ID, sal;
@@ -89,15 +90,10 @@ public:
                 // of a row to a vector
                 row.push_back(word);
             }
-            /*
-            for (int i = 0; i > row.size(); i++)
-            {
-                cout << row[i] << endl;
-            }*/
             // convert string to integer for comparision
             ID = stoi(row[0]);
 
-            // Compare the roll number
+            // Compare the account Number
             if (ID == id)
             {
 
