@@ -20,12 +20,15 @@ class Employee : public Bank
 
 private:
     int EmpID;
-    char EmpName[50], Department[10];
+    //char EmpName[50], Department[10];
     //vector<string> EmpName;
-    string Post;
+    vector<string> EmpName;
+    vector<string> Department;
+    vector<string> Post;
 
 public:
     float Salary;
+
     list<int> li;
     //int managerSalary;
     //Function to set Salary of employee
@@ -46,21 +49,31 @@ public:
     void ReadData()
     {
         Logger::Info("Writing data about Employee");
-        cout << endl
-             << "Employee ID:";
+        string name;
+        cout << "Employee ID: ";
         cin >> EmpID;
+        cin.ignore();
         li.push_back(EmpID);
-        cout << "Employee Name:";
-        cin >> EmpName;
-        cout << "Employee's Post:";
-        cin >> Post;
-        if (Post == "Manager")
+        cout << "Employee Name: ";
+        cin >> name;
+        EmpName.push_back(name);
+        cin.ignore();
+        int n = EmpName.size();
+        cout << "Current Size is: " << n << "\n";
+        cout << EmpName[n - 1] << "\n";
+        string post;
+        cout << "Employee's Post: ";
+        cin >> post;
+        Post.push_back(post);
+        cin.ignore();
+
+        if (post == "Manager")
         {
             cout << "Manager's Salary: ";
             cin >> managerSalary;
             cout << "Manager Salary input: " << managerSalary;
         }
-        else if (Post == "Cashier")
+        else if (post == "Cashier")
         {
             cout << "Cashier's Salary: ";
             cin >> cashierSalary;
@@ -71,8 +84,16 @@ public:
             cout << "Salary: ";
             cin >> Salary;
         }
+        cin.ignore();
+        string department;
         cout << "\nEmployee's Department:";
-        cin >> Department;
+        cin >> department;
+        Department.push_back(department);
+        cin.ignore();
+        /*
+        cout << "Current Size is: " << EmpName.size() << "\n";
+        cout << "Current Size is: " << Department.size() << "\n";
+        cout << "Current Size is: " << Post.size() << "\n";*/
     }
     //Function to export data of employee
     void exportDataAsTxt()
@@ -80,20 +101,27 @@ public:
         Logger::Info("Exporting Data of Employee in txt format");
         ofstream MyFile("employeeData.txt", ios::out | ios::app);
         //MyFile << GetID();
-        MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName << "\nDepartment: " << Department << "\nSalary: " << Salary << "\n";
+        int n = EmpName.size() - 1;
+        MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName[n] << "\nDepartment: " << Department[n] << "\nSalary: " << Salary << "\n";
         MyFile.close();
+        for (int i = 0; i < EmpName.size(); i++)
+        {
+            cout << EmpName[i] << " " << Department[i] << " ";
+        }
     }
 
     //Function to export data as csv
     void exportDataAsCSV()
     {
-        Logger::Info("Exporting Data of Employee in csv format");
+        Logger::Info("Exporting data in csv format");
         fstream fout;
-        fout.open("employeeData.csv", ios::out | ios::app);
-        fout << EmpID << ","
-             << EmpName << ","
-             << Department << ","
-             << Salary << ",";
+        fout.open("employeedata.csv", ios::out | ios::app);
+        int n = EmpName.size();
+        int m = Department.size();
+        //cout << "Size of EmpName vector is: " << n;
+        //cout << EmpID << EmpName[n - 1] << Department[m - 1] << Salary << endl;
+        fout << EmpID << "," << EmpName[n - 1] << "," << Post[n - 1] << "," << Department[m - 1] << "," << Salary << "\n";
+        //
     }
 
     //Function to display employment details
@@ -133,7 +161,7 @@ public:
             // convert string to integer for comparision
             ID = stoi(row[0]);
 
-            // Compare the roll number
+            // Compare the with the present ID
             if (ID == id)
             {
 
@@ -141,8 +169,9 @@ public:
                 count = 1;
                 cout << "Details of Employment ID: " << row[0] << " : \n";
                 cout << "Name: " << row[1] << "\n";
-                cout << "Department: " << row[2] << "\n";
-                cout << "Salary: " << row[3] << "\n";
+                cout << "Post: " << row[2] << "\n";
+                cout << "Department: " << row[3] << "\n";
+                cout << "Salary: " << row[4] << "\n";
                 break;
             }
         }
@@ -164,21 +193,11 @@ public:
         cout << "Employment ID: " << EmpID;
         return EmpID;
     }
-    //Function to display record of Employee
-    void DisplayRecord()
+
+    //Function to get Total number of Employees
+    int getEmployeeCount()
     {
-        Logger::Info("Displaying record about Employee");
-        cout << endl
-             << "_____________________________________________________________________";
-        cout << endl
-             << setw(5) << EmpID << setw(15) << EmpName << setw(15) << Post << setw(15) << Department << setw(8) << Salary;
-    }
-    //Functiont to get department of Employee
-    char *GetDepartment()
-    {
-        Logger::Info("Getting department of Employee");
-        cout << "Department: " << Department;
-        return Department;
+        return li.size();
     }
 };
 
