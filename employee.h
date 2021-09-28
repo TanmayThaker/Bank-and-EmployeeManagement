@@ -124,6 +124,7 @@ public:
     //Function to display employment details
     void getEmployeeDetails(int id)
     {
+        Logger::Info("Getting Employee Details From CSV");
         fstream fin;
         fin.open("employeeData.csv", ios::in);
         int ID, sal;
