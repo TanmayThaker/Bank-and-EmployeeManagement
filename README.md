@@ -14,7 +14,7 @@ A single project which implements the following concepts of c++:
   *   Polymorphism
   *   Input/Output Files 
   *   Exception Handling
-  *   Data Structure - Array
+  *   Data Structure - Arrays, Vector
   *   Inheritance
   *   Logging Mechanism
   *   Header files
