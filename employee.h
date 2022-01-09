@@ -1,4 +1,4 @@
-//Including necessary files
+// Including necessary files
 #include <iostream>
 #include <conio.h>
 #include <fstream>
@@ -14,14 +14,14 @@ using namespace std;
 float managerSalary;
 float cashierSalary;
 
-//Employee class
+// Employee class
 class Employee : public Bank
 {
 
 private:
     int EmpID;
-    //char EmpName[50], Department[10];
-    //vector<string> EmpName;
+    // char EmpName[50], Department[10];
+    // vector<string> EmpName;
     vector<string> EmpName;
     vector<string> Department;
     vector<string> Post;
@@ -30,8 +30,8 @@ public:
     float Salary;
 
     list<int> li;
-    //int managerSalary;
-    //Function to set Salary of employee
+    // int managerSalary;
+    // Function to set Salary of employee
     void setSalary(int sal)
     {
         Logger::Info("Setting Salary Of Employee");
@@ -92,22 +92,36 @@ public:
         cout << "Current Size is: " << Department.size() << "\n";
         cout << "Current Size is: " << Post.size() << "\n";*/
     }
-    //Function to export data of employee
+    // Function to export data of employee
     void exportDataAsTxt()
     {
         Logger::Info("Exporting Data of Employee in txt format");
         ofstream MyFile("employeeData.txt", ios::out | ios::app);
-        //MyFile << GetID();
+        // MyFile << GetID();
         int n = EmpName.size() - 1;
-        MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName[n] << "\nDepartment: " << Department[n] << "\nSalary: " << Salary << "\n";
+        int m = Post.size() - 1;
+        cout << EmpName[n];
+        if (Post[m] == "Cashier")
+        {
+            MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName[n] << "\nDepartment: " << Department[n] << "\nSalary: " << cashierSalary << "\n";
+        }
+        else if (Post[m] == "Manager")
+        {
+            MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName[n] << "\nDepartment: " << Department[n] << "\nSalary: " << managerSalary << "\n";
+        }
+        else
+        {
+            MyFile << "Employee ID: " << EmpID << "\nEmployee Name: " << EmpName[n] << "\nDepartment: " << Department[n] << "\nSalary: " << Salary << "\n";
+        }
         MyFile.close();
+        /*
         for (int i = 0; i < EmpName.size(); i++)
         {
             cout << EmpName[i] << " " << Department[i] << " ";
-        }
+        }*/
     }
 
-    //Function to export data as csv
+    // Function to export data as csv
     void exportDataAsCSV()
     {
         Logger::Info("Exporting data in csv format");
@@ -115,13 +129,25 @@ public:
         fout.open("employeedata.csv", ios::out | ios::app);
         int n = EmpName.size();
         int m = Department.size();
-        //cout << "Size of EmpName vector is: " << n;
-        //cout << EmpID << EmpName[n - 1] << Department[m - 1] << Salary << endl;
-        fout << EmpID << "," << EmpName[n - 1] << "," << Post[n - 1] << "," << Department[m - 1] << "," << Salary << "\n";
-        //
+        // cout << "Size of EmpName vector is: " << n;
+        // cout << EmpID << EmpName[n - 1] << Department[m - 1] << Salary << endl;
+        if (Post[n - 1] == "Manager")
+        {
+            fout << EmpID << "," << EmpName[n - 1] << "," << Post[n - 1] << "," << Department[m - 1] << "," << managerSalary << "\n";
+            //
+        }
+        else if (Post[n - 1] == "Cashier")
+        {
+            fout << EmpID << "," << EmpName[n - 1] << "," << Post[n - 1] << "," << Department[m - 1] << "," << cashierSalary << "\n";
+        }
+        else
+        {
+            fout << EmpID << "," << EmpName[n - 1] << "," << Post[n - 1] << "," << Department[m - 1] << "," << Salary << "\n";
+            //
+        }
     }
 
-    //Function to display employment details
+    // Function to display employment details
     void getEmployeeDetails(int id)
     {
         Logger::Info("Getting Employee Details From CSV");
@@ -178,13 +204,13 @@ public:
             cout << "Record not found\n";
     }
 
-    //Function to get Salary of Manager
+    // Function to get Salary of Manager
     int getManagerSalary()
     {
         Logger::Info("Getting Salary Of Manager");
         return managerSalary;
     }
-    //Function to get ID of Employee
+    // Function to get ID of Employee
     int GetID()
     {
         Logger::Info("Getting ID Of Employee");
@@ -192,18 +218,18 @@ public:
         return EmpID;
     }
 
-    //Function to get Total number of Employees
+    // Function to get Total number of Employees
     int getEmployeeCount()
     {
         return li.size();
     }
 };
 
-//Class Manager
+// Class Manager
 class Manager : public Employee
 {
 public:
-    //Overriden function to get salary of Manager
+    // Overriden function to get salary of Manager
     int getSalary()
     {
         Logger::Info("Getting salary of Manager");
@@ -211,11 +237,11 @@ public:
         return managerSalary;
     }
 };
-//class Cashier
+// class Cashier
 class Cashier : public Employee
 {
 public:
-    //Overriden function to get salary of Cashier
+    // Overriden function to get salary of Cashier
     int getSalary()
     {
         Logger::Info("Getting salary of Cashier");
