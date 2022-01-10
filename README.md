@@ -6,6 +6,7 @@
 * [Class-diagram](#Class-diagram)
 * [Functionalities provided](#Functionalities-Provided)
 * [Logger](#Logger)
+* [Credits](#Credits)
 
 
 ## About this Project
@@ -59,3 +60,5 @@ I have implemented a logger which has different levels of priority and it logs e
 
 <img src="logger_image.PNG" />
 
+## Credits
+Daniel Blaggy[https://www.youtube.com/playlist?list=PL5Lk2LPoiyAKcw7T-_FB_4BNrWkxfwnus]
