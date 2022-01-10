@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <thread>
 #include <mutex>
+#include <bits/stdc++.h>
 #include "logger.h"
 using namespace std;
 // mutex m;
@@ -57,7 +58,7 @@ public:
         fout.open("bankData.csv", ios::out | ios::app);
         fout << accountNumber[z - 1] << ","
              << username[m - 1] << ","
-             << balance << ","
+             << amount << ","
              << type[n - 1] << "\n";
     }
 
@@ -135,15 +136,41 @@ public:
     void setTotalAvailableBalance(int bal)
     {
         Logger::Info("Setting Total Available Balance");
-        balance = bal;
+        amount = bal;
     }
     // Function to deposit total amount of Money
     void deposit()
     {
         Logger::Info("Deposit function called");
         cout << "\nEnter amount to be Deposited\n";
-        cin >> amount;
-        balance += amount;
+        int amt;
+        cin >> amt;
+        try
+        {
+            if (amt > 0)
+            {
+                amount += amt;
+                balance += amt;
+            }
+            while (amt < 0)
+            {
+                Logger::Critical("Negative amount is entered");
+                throw amt;
+            }
+        }
+        catch (int amt)
+        {
+            Logger::Error("Exception occured while depositing money");
+            cout << "Negative amount not allowed" << endl;
+        }
+        /*
+        if(amt<0)
+        {
+            cout<<"Please enter a valid amount to deposit";
+
+        }
+        amount = amount + amt;
+        balance += amt;*/
     }
     // Function to get Account Number
     int getAccountNumber()
@@ -159,10 +186,12 @@ public:
     {
         Logger::Info("Withdraw Money Function called");
         // m.lock();
+        cout << "Your available balance is " << amount << endl;
         float withdrawAmount, availablebalance;
         cout << "Enter amount to withdraw\n";
         cin >> withdrawAmount;
-        availablebalance = balance;
+        // availablebalance = balance;
+        availablebalance = amount;
         // Try catch block for Exception Handling
         try
         {
@@ -172,6 +201,7 @@ public:
                 throw withdrawAmount;
             }
             availablebalance = availablebalance - withdrawAmount;
+            balance -= withdrawAmount;
             setTotalAvailableBalance(availablebalance);
             cout << "Amount of rupees " << withdrawAmount << " has been withdrawn";
         }
@@ -217,7 +247,8 @@ public:
         cout << "\nEnter initial"
              << " balance:";
 
-        cin >> balance;
+        cin >> amount;
+        balance += amount;
         cout << "\nEnter Account number: ";
         cin >> accNumber;
         accountNumber.push_back(accNumber);
@@ -249,7 +280,7 @@ public:
         cout << "Name:" << username[m - 1] << endl;
         cout << "Account No:" << accountNumber[z - 1] << endl;
         cout << "Account type:" << type[n - 1] << endl;
-        cout << "Balance:" << balance << endl;
+        cout << "Balance:" << amount << endl;
     }
 };
 

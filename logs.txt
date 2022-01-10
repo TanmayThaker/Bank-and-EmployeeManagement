@@ -1464,3 +1464,110 @@
 01/09/22 23:15:58	[Info]	Getting Employee Details From CSV
 01/09/22 23:16:17	[Info]	Getting Salary Of Employee
 01/09/22 23:16:21	[Info]	Getting salary of Manager
+01/10/22 11:57:34	[Info]	Bank Menu Called
+01/10/22 11:57:37	[Info]	Taking data from the User
+01/10/22 11:58:45	[Info]	Bank Menu Called
+01/10/22 11:58:47	[Info]	Taking data from the User
+01/10/22 11:59:33	[Info]	Exporting Data of bank in csv format
+01/10/22 12:00:45	[Info]	Exporting Data of bank in csv format
+01/10/22 12:00:57	[Info]	Bank Menu Called
+01/10/22 12:00:59	[Info]	Taking data from the User
+01/10/22 12:01:16	[Info]	Exporting Data of bank in csv format
+01/10/22 12:01:29	[Info]	Showing Total Balance
+01/10/22 12:02:13	[Info]	Deposit function called
+01/10/22 12:02:23	[Info]	Exporting Data of bank in csv format
+01/10/22 12:02:36	[Info]	Bank Data function called
+01/10/22 12:02:44	[Info]	Getting account details from CSV
+01/10/22 12:03:02	[Info]	Taking data from the User
+01/10/22 12:03:24	[Info]	Exporting Data of bank in csv format
+01/10/22 12:05:05	[Info]	Bank Menu Called
+01/10/22 12:05:06	[Info]	Taking data from the User
+01/10/22 12:05:25	[Info]	Exporting Data of bank in csv format
+01/10/22 12:05:32	[Info]	Showing Total Balance
+01/10/22 12:05:37	[Info]	Taking data from the User
+01/10/22 12:05:55	[Info]	Exporting Data of bank in csv format
+01/10/22 12:05:58	[Info]	Showing Total Balance
+01/10/22 12:06:15	[Info]	Withdraw Money Function called
+01/10/22 12:06:21	[Critical]	Invalid amount is entered
+01/10/22 12:06:21	[Error]	Exception Occured while withdrawing money
+01/10/22 12:09:05	[Info]	Bank Menu Called
+01/10/22 12:09:07	[Info]	Taking data from the User
+01/10/22 12:14:18	[Info]	Exporting Data of bank in csv format
+01/10/22 12:14:19	[Info]	Taking data from the User
+01/10/22 12:14:32	[Info]	Exporting Data of bank in csv format
+01/10/22 12:14:41	[Info]	Showing Total Balance
+01/10/22 12:14:56	[Info]	Deposit function called
+01/10/22 12:15:04	[Info]	Showing Total Balance
+01/10/22 12:15:41	[Info]	Withdraw Money Function called
+01/10/22 12:15:49	[Info]	Setting Total Available Balance
+01/10/22 12:16:00	[Info]	Showing Total Balance
+01/10/22 12:19:44	[Info]	Showing Total Balance
+01/10/22 12:20:14	[Info]	Bank Menu Called
+01/10/22 12:25:25	[Info]	Taking data from the User
+01/10/22 12:25:39	[Info]	Exporting Data of bank in csv format
+01/10/22 12:25:41	[Info]	Taking data from the User
+01/10/22 12:25:51	[Info]	Exporting Data of bank in csv format
+01/10/22 12:26:01	[Info]	Showing Total Balance
+01/10/22 12:26:05	[Info]	Deposit function called
+01/10/22 12:26:15	[Info]	Showing Total Balance
+01/10/22 12:26:22	[Info]	Withdraw Money Function called
+01/10/22 12:26:48	[Critical]	Invalid amount is entered
+01/10/22 12:26:48	[Error]	Exception Occured while withdrawing money
+01/10/22 12:26:51	[Info]	Withdraw Money Function called
+01/10/22 12:27:22	[Info]	Setting Total Available Balance
+01/10/22 12:27:33	[Info]	Showing Total Balance
+01/10/22 12:27:42	[Info]	Exporting Data of bank in csv format
+01/10/22 12:27:59	[Info]	Withdraw Money Function called
+01/10/22 12:28:04	[Info]	Setting Total Available Balance
+01/10/22 12:28:08	[Info]	Showing Total Balance
+01/10/22 12:28:11	[Info]	Exporting Data of bank in csv format
+01/10/22 12:28:16	[Info]	Taking data from the User
+01/10/22 12:28:33	[Info]	Exporting Data of bank in csv format
+01/10/22 12:28:58	[Info]	Showing Total Balance
+01/10/22 12:29:05	[Info]	Withdraw Money Function called
+01/10/22 12:29:19	[Info]	Setting Total Available Balance
+01/10/22 12:29:26	[Info]	Showing Total Balance
+01/10/22 12:29:31	[Info]	Exporting Data of bank in csv format
+01/10/22 12:29:47	[Info]	Getting account details from CSV
+01/10/22 12:30:08	[Info]	Taking data from the User
+01/10/22 12:30:29	[Info]	Showing Total Balance
+01/10/22 12:30:34	[Info]	Deposit function called
+01/10/22 12:30:40	[Info]	Showing Total Balance
+01/10/22 12:30:45	[Info]	Exporting Data of bank in csv format
+01/10/22 12:31:05	[Info]	Withdraw Money Function called
+01/10/22 12:31:12	[Critical]	Invalid amount is entered
+01/10/22 12:31:12	[Error]	Exception Occured while withdrawing money
+01/10/22 12:32:27	[Info]	Getting account details from CSV
+01/10/22 12:56:41	[Info]	Getting Loan Menu
+01/10/22 12:56:43	[Info]	Getting details about Loan
+01/10/22 12:56:43	[Info]	Getting Loan Amount: Loan Amount Function called
+01/10/22 12:56:45	[Info]	Getting Loan: Get Loan Function called
+01/10/22 12:56:49	[Info]	Bank Menu Called
+01/10/22 12:56:52	[Info]	Getting Loan Menu
+01/10/22 12:56:55	[Info]	Getting Loan: Get Loan Function called
+01/10/22 14:06:36	[Info]	Bank Menu Called
+01/10/22 14:06:43	[Info]	Showing Total Balance
+01/10/22 14:06:48	[Info]	Taking data from the User
+01/10/22 14:07:06	[Info]	Showing Total Balance
+01/10/22 14:07:12	[Info]	Exporting Data of bank in csv format
+01/10/22 14:07:21	[Info]	Deposit function called
+01/10/22 14:07:27	[Info]	Showing Total Balance
+01/10/22 14:07:37	[Info]	Deposit function called
+01/10/22 14:07:42	[Error]	Exception occured while depositing money
+01/10/22 14:07:52	[Info]	Showing Total Balance
+01/10/22 14:08:04	[Info]	Taking data from the User
+01/10/22 14:08:27	[Info]	Showing Total Balance
+01/10/22 14:08:33	[Info]	Withdraw Money Function called
+01/10/22 14:08:39	[Info]	Setting Total Available Balance
+01/10/22 14:08:41	[Info]	Showing Total Balance
+01/10/22 14:08:47	[Info]	Exporting Data of bank in csv format
+01/10/22 14:09:17	[Info]	Showing Total Balance
+01/10/22 14:09:24	[Info]	Taking data from the User
+01/10/22 14:09:50	[Info]	Showing Total Balance
+01/10/22 14:09:57	[Info]	Deposit function called
+01/10/22 14:10:02	[Info]	Showing Total Balance
+01/10/22 14:10:18	[Info]	Withdraw Money Function called
+01/10/22 14:10:21	[Info]	Setting Total Available Balance
+01/10/22 14:10:33	[Info]	Exporting Data of bank in csv format
+01/10/22 14:10:57	[Info]	Deposit function called
+01/10/22 14:11:00	[Error]	Exception occured while depositing money
