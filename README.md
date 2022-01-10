@@ -21,7 +21,7 @@ A single project which implements the following concepts of c++:
   *   Constructor and Destructor
   
 ## Class Diagram
-<img src="class_updated_diagram.png" />
+<img src="class_diagram_updated.png" />
 
 I have implemented 5 classes namely Bank class, Employee class, Manager class, Cashier Class, Loan class.
 ## Functionalities Provided
